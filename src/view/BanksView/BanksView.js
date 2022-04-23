@@ -1,14 +1,11 @@
+import { useState } from 'react';
+
 import AddBankForm from '../../components/BankForm/BankForm';
 import BankForm from '../../components/BankForm/BankForm';
 import Modal from '../../components/Modal';
+import BankCard from '../../components/BankCard';
 
-import Button from '@mui/material/Button';
-import { useState } from 'react';
-
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import s from './BanksView.module.scss';
 
 function BanksView({ banks, addBank, deleteBank, editBank }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,62 +21,20 @@ function BanksView({ banks, addBank, deleteBank, editBank }) {
   };
 
   return (
-    <div>
-      <AddBankForm
+    <div className={s.BanksView}>
+      <AddBankForm 
         sendBankDetails={addBank}
         buttonTitle="Add bank"
-        title="Add bank"
+        title="Bank information"
       />
-      <ul>
-        {banks.map(
-          ({
-            id,
-            name,
-            interestRate,
-            maximumLoan,
-            minimumDownPayment,
-            loanTerm,
-          }) => (
-            <li key={id}>
-              <Card sx={{ maxWidth: 345 }}>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Interest rate: {interestRate}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Maximum loan: {maximumLoan}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Minimum down payment: {minimumDownPayment}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Loan term: {loanTerm}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    type="submit"
-                    color="primary"
-                    onClick={() => deleteBank(id)}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    type="submit"
-                    color="primary"
-                    onClick={() => onEditButtonClick(id)}
-                  >
-                    Edit
-                  </Button>
-                </CardActions>
-              </Card>
+      <ul className={s.list}>
+        {banks.map(bank => (
+            <li className={s.card} key={bank.id}>
+            <BankCard
+              bank={bank}
+              deleteBank={deleteBank}
+              onEditButtonClick={onEditButtonClick}
+              withButtons/>
             </li>
           ),
         )}

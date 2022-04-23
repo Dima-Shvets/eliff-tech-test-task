@@ -2,31 +2,47 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import AppHeader from './components/AppBar';
+import AppBar from './components/AppBar';
 
 import NotFoundView from './view/NotFoundView';
 import BanksView from './view/BanksView/BanksView';
 import CalculatorView from './view/CalculatorView/CalculatorView';
+import Container from './components/Container';
 
 import { v4  } from 'uuid';
 
 
 function App() {
-  const [banks, setBanks] = useState([]);
-
+  const [banks, setBanks] = useState([{
+    name: "dimas",
+    interestRate: "10",
+    maximumLoan: "20000",
+    minimumDownPayment: "10",
+    loanTerm: "20",
+    id: "aefdf1c8-6256-45e3-9e31-2c2b7238b709"
+  },
+    {
+    name: "dima",
+    interestRate: "10",
+    maximumLoan: "20",
+    minimumDownPayment: "40005",
+    loanTerm: "20",
+    id: "aefdf1c8-6256-45e3-9e31-2c2b7238b708"
+  }
+  ]);
+  
   useEffect(() => {
-    // console.log('first render')
-    const banks = localStorage.getItem('banks');
-    const parsedBanks = JSON.parse(banks);
-    console.log('first render banks', parsedBanks)
+    
+    const banksFromStorage = localStorage.getItem('banks');
+    const parsedBanks = JSON.parse(banksFromStorage);
+    // console.log('first render banks', parsedBanks)
     if (parsedBanks) {
       setBanks(parsedBanks)
     }
   }, [])
 
   useEffect(() => {
-    // console.log('UseEffect')
-    console.log('every render banks', banks)
+    // console.log('every render banks', banks)
     localStorage.setItem('banks', JSON.stringify(banks))
   }, [banks])  
 
@@ -60,8 +76,8 @@ function App() {
 
 
   return (
-    <div className="App">
-      <AppHeader />
+      <Container>
+      <AppBar />
       <Switch>
           <Route path="/" exact>
           <BanksView
@@ -71,14 +87,13 @@ function App() {
             editBank={editBank}/>
           </Route>
           <Route path="/calculator" exact>
-            <CalculatorView />
+          <CalculatorView banks={banks}/>
           </Route>
           <Route>
             <NotFoundView />
           </Route>
       </Switch>
-      
-    </div>
+      </Container>
   );
 }
 

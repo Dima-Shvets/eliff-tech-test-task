@@ -83,9 +83,8 @@ function BankForm({
 
   return (
     <form onSubmit={onSubmit} className={s.form}>
-      <h2>{title}</h2>
+      <h2 className={s.title}>{title}</h2>
       <TextField
-        className={s.input}
         label="Bank name"
         type="text"
         size="small"
@@ -97,7 +96,6 @@ function BankForm({
         onChange={inputHandler}
       />
       <TextField
-        className={s.input}
         label="Interest rate (%)"
         type="text"
         size="small"
@@ -109,7 +107,6 @@ function BankForm({
         onChange={inputHandler}
       />
       <TextField
-        className={s.input}
         label="Maximum loan (USD)"
         type="text"
         size="small"
@@ -121,8 +118,7 @@ function BankForm({
         onChange={inputHandler}
       />
       <TextField
-        className={s.input}
-        label="Minimum down payment (USD)"
+        label="Minimum down payment (%)"
         type="text"
         size="small"
         color="primary"
@@ -133,8 +129,7 @@ function BankForm({
         onChange={inputHandler}
       />
       <TextField
-        className={s.input}
-        label="Loan term (Months)"
+        label="Loan term (Years)"
         type="text"
         size="small"
         color="primary"
@@ -145,7 +140,6 @@ function BankForm({
         onChange={inputHandler}
       />
       <Button
-        className={s.btn}
         variant="contained"
         size="normal"
         type="submit"

@@ -1,0 +1,14 @@
+.BanksView{
+    padding-top: 30px;
+}
+
+.list{
+    display: flex;
+    flex-wrap: wrap;
+    margin: -15px;
+}
+
+.card{
+    margin: 15px;
+    flex-basis: calc((100% - 60px) / 2); 
+}
