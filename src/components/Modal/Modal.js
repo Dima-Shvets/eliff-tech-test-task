@@ -15,8 +15,9 @@ function Modal({ toggleModal, children }) {
     };
     
     const onEscButtonPress = useCallback(e => {
-     console.log(e)
-      toggleModal();
+      if (e.key === "Escape") {
+       toggleModal();
+     }
     }, [toggleModal])
 
   useEffect(() => {

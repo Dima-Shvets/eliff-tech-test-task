@@ -5,7 +5,12 @@ import Modal from '../../components/Modal';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 
-function BanksView({ banks, addBank, deleteBank }) {
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
+function BanksView({ banks, addBank, deleteBank, editBank }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [bank, setBank] = useState({});
 
@@ -18,14 +23,13 @@ function BanksView({ banks, addBank, deleteBank }) {
     setModalOpen(prevState => !prevState);
   };
 
-  const updateBank = (id, bank) => {};
-
   return (
     <div>
       <AddBankForm
         sendBankDetails={addBank}
-        buttonTitle='Add bank'
-        title='Add bank'/>
+        buttonTitle="Add bank"
+        title="Add bank"
+      />
       <ul>
         {banks.map(
           ({
@@ -37,31 +41,45 @@ function BanksView({ banks, addBank, deleteBank }) {
             loanTerm,
           }) => (
             <li key={id}>
-              <h3>{name}</h3>
-              <ul>
-                <li>Interest rate: {interestRate}</li>
-                <li>Maximum loan: {maximumLoan}</li>
-                <li>Minimum down payment: {minimumDownPayment}</li>
-                <li>Loan term: {loanTerm}</li>
-              </ul>
-              <Button
-                variant="contained"
-                size="small"
-                type="submit"
-                color="primary"
-                onClick={() => deleteBank(id)}
-              >
-                Delete
-              </Button>
-              <Button
-                variant="contained"
-                size="small"
-                type="submit"
-                color="primary"
-                onClick={() => onEditButtonClick(id)}
-              >
-                Edit
-              </Button>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Interest rate: {interestRate}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Maximum loan: {maximumLoan}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Minimum down payment: {minimumDownPayment}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Loan term: {loanTerm}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    type="submit"
+                    color="primary"
+                    onClick={() => deleteBank(id)}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    type="submit"
+                    color="primary"
+                    onClick={() => onEditButtonClick(id)}
+                  >
+                    Edit
+                  </Button>
+                </CardActions>
+              </Card>
             </li>
           ),
         )}
@@ -69,9 +87,13 @@ function BanksView({ banks, addBank, deleteBank }) {
       {modalOpen && (
         <Modal toggleModal={toggleModal}>
           <BankForm
-            sendBankDetails={updateBank}
+            modalForm
+            title="Edit Bank"
+            sendBankDetails={editBank}
             buttonTitle={'Save'}
             bankInfo={bank}
+            editBank={editBank}
+            toggleModal={toggleModal}
           />
         </Modal>
       )}
