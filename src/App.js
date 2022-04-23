@@ -2,7 +2,7 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import { useState } from 'react';
 
-import AppBar from './components/AppBar';
+import AppHeader from './components/AppBar';
 
 import NotFoundView from './view/NotFoundView';
 import BanksView from './view/BanksView/BanksView';
@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="App">
-      <AppBar />
+      <AppHeader />
       <Switch>
           <Route path="/" exact>
           <BanksView

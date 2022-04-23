@@ -14,4 +14,34 @@
 .Modal {
     max-width: calc(100vw - 48px);
     max-height: calc(100vh - 24px);
+    background-color: #fff;
+}
+
+
+.modal {
+    position: absolute;
+    bottom: 50%;
+    right: 50%;
+    height: 581px;
+    width: 528px;
+    border-radius: 4px;
+    padding: 40px;
+
+    background: var(--background-color);
+
+    transform: translate(50%, 50%) scale(1);
+    transition: transform var(--transition-time) var(--transiton-function);
+
+    .backdrop.is-hidden & {
+        transform: translate(50%, 50%) scale(1.1);
+    }
+}
+
+.modal__title {
+    margin-bottom: 12px;
+
+    font-size: 20px;
+    line-height: 1.15em;
+    letter-spacing: 0.03em;
+    text-align: center;
 }

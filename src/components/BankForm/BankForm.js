@@ -8,6 +8,7 @@ import s from './BankForm.module.scss';
 function BankForm({
   sendBankDetails,
   buttonTitle,
+  title,
   bankInfo = {
     name: '',
     interestRate: '',
@@ -74,6 +75,7 @@ function BankForm({
 
   return (
     <form onSubmit={onSubmit} className={s.form}>
+      <h2>{title}</h2>
       <TextField
         className={s.input}
         label="Bank name"
