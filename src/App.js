@@ -16,7 +16,7 @@ function App() {
   const [banks, setBanks] = useState([]);
 
   useEffect(() => {
-    setBanks(fetchAllBanks())
+    fetchAllBanks().then((data) => setBanks(data));
   }, [])  
 
   const addBank = (newBank) => {

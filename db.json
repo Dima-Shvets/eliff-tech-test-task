@@ -1,28 +1,28 @@
 {
   "banks": [
     {
-      "name": "Prvat",
-      "interestRate": "5",
-      "maximumLoan": "80000",
-      "minimumDownPayment": "8",
-      "loanTerm": "15",
-      "id": "aefdf1c8-6256-45e3-9e31-2c2b7238b708"
-    },
-    {
-      "name": "Dimac Shvets",
+      "name": "Privat",
       "interestRate": "10",
-      "maximumLoan": "20",
-      "minimumDownPayment": "4000",
+      "maximumLoan": "20000",
+      "minimumDownPayment": "8",
       "loanTerm": "20",
       "id": "5R3fZry"
     },
     {
-      "name": "Dimac Shvets",
-      "interestRate": "10",
-      "maximumLoan": "20",
-      "minimumDownPayment": "4000",
-      "loanTerm": "20",
-      "id": "iuKgv0d"
+      "name": "Raiffaisen",
+      "interestRate": "5",
+      "maximumLoan": "40000",
+      "minimumDownPayment": "30",
+      "loanTerm": "30",
+      "id": "y9VNxCF"
+    },
+    {
+      "name": "Mono bank",
+      "interestRate": "4",
+      "maximumLoan": "35000",
+      "minimumDownPayment": "2500",
+      "loanTerm": "25",
+      "id": "yMBrxY6"
     }
   ]
 }
