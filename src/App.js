@@ -14,16 +14,10 @@ import { fetchAllBanks } from './services/banks-api-service';
 
 function App() {
   const [banks, setBanks] = useState([]);
-  
-  useEffect(() => {
-    
-    
-  }, [])
 
   useEffect(() => {
-    // console.log('every render banks', banks)
-    localStorage.setItem('banks', JSON.stringify(banks))
-  }, [banks])  
+    setBanks(fetchAllBanks())
+  }, [])  
 
   const addBank = (newBank) => {
     const check = banks.find(bank => bank.name === newBank.name);
