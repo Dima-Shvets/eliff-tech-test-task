@@ -1,6 +1,7 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { v4  } from 'uuid';
 
 import AppBar from './components/AppBar';
 
@@ -9,36 +10,14 @@ import BanksView from './view/BanksView/BanksView';
 import CalculatorView from './view/CalculatorView/CalculatorView';
 import Container from './components/Container';
 
-import { v4  } from 'uuid';
-
+import { fetchAllBanks } from './services/banks-api-service';
 
 function App() {
-  const [banks, setBanks] = useState([{
-    name: "dimas",
-    interestRate: "10",
-    maximumLoan: "20000",
-    minimumDownPayment: "10",
-    loanTerm: "20",
-    id: "aefdf1c8-6256-45e3-9e31-2c2b7238b709"
-  },
-    {
-    name: "dima",
-    interestRate: "10",
-    maximumLoan: "20",
-    minimumDownPayment: "40005",
-    loanTerm: "20",
-    id: "aefdf1c8-6256-45e3-9e31-2c2b7238b708"
-  }
-  ]);
+  const [banks, setBanks] = useState([]);
   
   useEffect(() => {
     
-    const banksFromStorage = localStorage.getItem('banks');
-    const parsedBanks = JSON.parse(banksFromStorage);
-    // console.log('first render banks', parsedBanks)
-    if (parsedBanks) {
-      setBanks(parsedBanks)
-    }
+    
   }, [])
 
   useEffect(() => {

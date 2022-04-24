@@ -2,31 +2,25 @@ import { useState } from 'react';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-import BankCard from '../../components/BankCard'
+import BankCard from '../../components/BankCard';
 
-import { Link } from 'react-router-dom';
+import s from './CalculatorView.module.scss';
 
 function CalculatorView({ banks }) {
   const [initialLoan, setInitialLoan] = useState('');
   const [downPayment, setDownPayment] = useState('');
   const [bank, setBank] = useState({});
   const [calculate, setCalculate] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const open = Boolean(anchorEl);
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const onOptionClick = id => {
     setBank(banks.find(bank => bank.id === id));
-    handleClose();
+
   };
 
   const onInpuChange = e => {
@@ -46,14 +40,26 @@ function CalculatorView({ banks }) {
     }
   };
 
-  const onButtonClick = () => {
-      if (initialLoan > bank.maximumLoan) {
-        alert(`Loan ammount can't be more than ${bank.maximumLoan}USD`)
-        return
-      }
-      if (downPayment > bank.minimumDownPayment) {
-        alert(`Down payment can't be less than ${bank.minimumDownPayment}% of the loan`)
-        return
+  const handleChange = (e) => {
+    const id = e.target.value;
+    setBank(banks.find(bank => bank.id === id))
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (Object.keys(bank).length === 0) {
+      alert(`Choose a bank first`);
+      return;
+    }
+    if (initialLoan > bank.maximumLoan) {
+      alert(`Loan ammount can't be more than ${bank.maximumLoan}USD`);
+      return;
+    }
+    if (downPayment < (initialLoan * bank.minimumDownPayment) / 100) {
+      alert(
+        `Down payment can't be less than ${bank.minimumDownPayment}% of the loan`,
+      );
+      return;
     }
     setCalculate(true);
   };
@@ -80,9 +86,9 @@ function CalculatorView({ banks }) {
   };
 
   return (
-    <div>
-      <h1>Mortgage calculator</h1>
-      <div>
+    <div className={s.CalculatorView}>
+      <h2 className={s.title}>Mortgage calculator</h2>
+      <form onSubmit={onSubmit} className={s.form}>
         <TextField
           label="Initial loan (USD)"
           type="text"
@@ -105,67 +111,49 @@ function CalculatorView({ banks }) {
           value={downPayment}
           onChange={onInpuChange}
         />
-        <div>
-          <Button
-            aria-controls={open ? 'demo-positioned-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-          >
-            Choose a bank
-          </Button>
-          <Menu
-            id="demo-positioned-menu"
-            aria-labelledby="demo-positioned-button"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-          >
-            {banks.length === 0 ? (
+        <div className={s.box}>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Bank</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={Object.keys(bank).length === 0 ? '' : bank.id}
+                label="Age"
+                onChange={handleChange}
+              >
+                {banks.length === 0 ? (
               <MenuItem>
-                <Link to="/">
-                  There is no banks in the list. Press here to add.
-                </Link>
+                  There is no banks in the list. 
               </MenuItem>
             ) : (
               banks.map(bank => (
-                <MenuItem key={bank.id} onClick={() => onOptionClick(bank.id)}>
+                <MenuItem key={bank.id} value={bank.id} onClick={() => onOptionClick(bank.id)}>
                   {bank.name}
                 </MenuItem>
               ))
             )}
-          </Menu>
+              </Select>
+            </FormControl>
+          </Box>
         </div>
-        <div>
-          {Object.keys(bank).length !== 0 && (
-            <BankCard
-              bank={bank}/>
-          )}
-        </div>
-        <Button
-          variant="contained"
-          size="normal"
-          type="button"
-          color="primary"
-          onClick={onButtonClick}
-        >
+
+        {Object.keys(bank).length !== 0 && (
+          <div className={s.card}>
+            <BankCard bank={bank} />
+          </div>
+        )}
+
+        <Button variant="contained" size="normal" type="submit" color="primary">
           Calculate
         </Button>
-        {calculate && (
-          <>
-            <h2>monthly mortgage payment</h2>
-            <p>{calculatePayment()}</p>
-          </>
-        )}
-      </div>
+      </form>
+      {calculate && (
+        <div className={s['result-wrapper']}>
+          <h2 className={s.title}>monthly mortgage payment</h2>
+          <p className={s.result}>{calculatePayment()}USD</p>
+        </div>
+      )}
     </div>
   );
 }

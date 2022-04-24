@@ -3,6 +3,8 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+import {addNewBank} from '../../services/banks-api-service';
+
 import s from './BankForm.module.scss';
 
 function BankForm({
@@ -74,9 +76,14 @@ function BankForm({
       loanTerm,
       id,
     };
+    
     sendBankDetails(bank);
     if (modalForm) {
+
       toggleModal();
+    }
+    if (!modalForm) {
+      addNewBank(bank);
     }
     reset();
   };
