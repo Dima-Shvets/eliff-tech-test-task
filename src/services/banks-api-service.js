@@ -17,3 +17,7 @@ export async function deleteBankById(id) {
     await axios.delete(`/banks/${id}`);
 }
 
+export async function editBankById(editedBank) {
+    await axios.put(`/banks/${editedBank.id}`, editedBank);
+}
+

@@ -4,13 +4,12 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-import { deleteBankById } from '../../services/banks-api-service';
+
 
 function BankCard({ bank, deleteBank, onEditButtonClick, withButtons }) {
 
   const onDeleteButtonClick = (id) => {
     deleteBank(id)
-    deleteBankById(id)
   }
 
   return (

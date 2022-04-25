@@ -1,7 +1,6 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { v4  } from 'uuid';
 
 import AppBar from './components/AppBar';
 
@@ -10,7 +9,7 @@ import BanksView from './view/BanksView/BanksView';
 import CalculatorView from './view/CalculatorView/CalculatorView';
 import Container from './components/Container';
 
-import { fetchAllBanks } from './services/banks-api-service';
+import { fetchAllBanks, editBankById, deleteBankById, addNewBank } from './services/banks-api-service';
 
 function App() {
   const [banks, setBanks] = useState([]);
@@ -19,32 +18,22 @@ function App() {
     fetchAllBanks().then((data) => setBanks(data));
   }, [])  
 
-  const addBank = (newBank) => {
-    const check = banks.find(bank => bank.name === newBank.name);
+  const addBank = async (newBank) => {
 
-    if (check) {
-      alert(`${newBank.name} is already in the banks list`);
-      return;
-    }
-
-    newBank = {...newBank, id: v4()};
-
-    setBanks(prevState => ([ newBank, ...prevState ]));
+    const bank = await addNewBank(newBank)
+    setBanks(prevState => ([...prevState, bank]));
   }
 
   const deleteBank = (id) => {
     const updatedContacts = banks.filter(bank => bank.id !== id);
 
     setBanks(updatedContacts);
+    deleteBankById(id)
   }
 
   const editBank = (editedBank) => {
-    const check = banks.find(bank => bank.name === editedBank.name);
-    if (check) {
-      alert(`${editedBank.name} is already in the banks list`);
-      return;
-    }
-    setBanks(prevState => ([...prevState.filter(bank=> bank.id !== editedBank.id), editedBank]))
+    setBanks(prevState => ([editedBank, ...prevState.filter(bank => bank.id !== editedBank.id)]))
+    editBankById(editedBank);
   }
 
 
