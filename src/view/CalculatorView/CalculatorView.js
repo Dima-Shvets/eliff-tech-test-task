@@ -19,8 +19,7 @@ function CalculatorView({ banks }) {
   const [calculate, setCalculate] = useState(false);
 
   const onOptionClick = id => {
-    setBank(banks.find(bank => bank.id === id));
-
+    setBank(banks.find(bank => bank._id === id));
   };
 
   const onInpuChange = e => {
@@ -42,7 +41,7 @@ function CalculatorView({ banks }) {
 
   const handleChange = (e) => {
     const id = e.target.value;
-    setBank(banks.find(bank => bank.id === id))
+    setBank(banks.find(bank => bank._id === id))
   };
 
   const onSubmit = (e) => {
@@ -118,7 +117,7 @@ function CalculatorView({ banks }) {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={Object.keys(bank).length === 0 ? '' : bank.id}
+                value={Object.keys(bank).length === 0 ? '' : bank._id}
                 label="Age"
                 onChange={handleChange}
               >
@@ -128,7 +127,7 @@ function CalculatorView({ banks }) {
               </MenuItem>
             ) : (
               banks.map(bank => (
-                <MenuItem key={bank.id} value={bank.id} onClick={() => onOptionClick(bank.id)}>
+                <MenuItem key={bank._id} value={bank._id} onClick={() => onOptionClick(bank._id)}>
                   {bank.name}
                 </MenuItem>
               ))

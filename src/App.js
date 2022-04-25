@@ -25,15 +25,15 @@ function App() {
   }
 
   const deleteBank = (id) => {
-    const updatedContacts = banks.filter(bank => bank.id !== id);
+    const updatedContacts = banks.filter(bank => bank._id !== id);
 
     setBanks(updatedContacts);
     deleteBankById(id)
   }
 
-  const editBank = (editedBank) => {
-    setBanks(prevState => ([editedBank, ...prevState.filter(bank => bank.id !== editedBank.id)]))
-    editBankById(editedBank);
+  const editBank = async (editedBank) => {
+    const updatedBank = await editBankById(editedBank);
+    setBanks(prevState => ([updatedBank, ...prevState.filter(bank => bank._id !== updatedBank._id), ]))
   }
 
 

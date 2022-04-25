@@ -12,7 +12,7 @@ function BanksView({ banks, addBank, deleteBank, editBank }) {
   const [bank, setBank] = useState({});
 
   const onEditButtonClick = id => {
-    setBank(banks.find(bank => bank.id === id));
+    setBank(banks.find(bank => bank._id === id));
     toggleModal();
   };
 
@@ -29,7 +29,7 @@ function BanksView({ banks, addBank, deleteBank, editBank }) {
       />
       <ul className={s.list}>
         {banks.map(bank => (
-            <li className={s.card} key={bank.id}>
+            <li className={s.card} key={bank._id}>
             <BankCard
               bank={bank}
               deleteBank={deleteBank}

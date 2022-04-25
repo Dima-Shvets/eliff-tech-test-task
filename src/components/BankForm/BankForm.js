@@ -17,7 +17,7 @@ function BankForm({
     maximumLoan: '',
     minimumDownPayment: '',
     loanTerm: '',
-    id: null,
+    _id: null,
   },
 }) {
   const [name, setName] = useState(bankInfo.name);
@@ -25,7 +25,7 @@ function BankForm({
   const [maximumLoan, setMaximumLoan] = useState(bankInfo.maximumLoan);
   const [minimumDownPayment, setMinimumDownPayment] = useState(bankInfo.minimumDownPayment);
   const [loanTerm, setLoanTerm] = useState(bankInfo.loanTerm);
-  const [id] = useState(bankInfo.id)
+  const [_id] = useState(bankInfo._id)
 
   const inputHandler = e => {
     const { value, name } = e.target;
@@ -72,7 +72,7 @@ function BankForm({
       maximumLoan,
       minimumDownPayment,
       loanTerm,
-      id,
+      _id,
     };
     
     sendBankDetails(bank);

@@ -37,7 +37,7 @@ function BankCard({ bank, deleteBank, onEditButtonClick, withButtons }) {
           size="small"
           type="submit"
           color="primary"
-          onClick={() => onDeleteButtonClick(bank.id)}
+          onClick={() => onDeleteButtonClick(bank._id)}
         >
           Delete
         </Button>
@@ -46,7 +46,7 @@ function BankCard({ bank, deleteBank, onEditButtonClick, withButtons }) {
           size="small"
           type="submit"
           color="primary"
-          onClick={() => onEditButtonClick(bank.id)}
+          onClick={() => onEditButtonClick(bank._id)}
         >
           Edit
         </Button>
